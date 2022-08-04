@@ -1,0 +1,507 @@
+/* 1)	Create following types of arrays
+a)	Integer
+b)	String
+Use System.Array class to perform following operations on them
+Copy, Sort, Clear, Reverse
+Accept input from user through Console. */
+
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ArrayOperation
+{
+    class Program
+    {
+        public void integer()
+        {
+            Console.WriteLine("Enter Size of an Array:");
+            int size = int.Parse(Console.ReadLine());
+            int[] arr = new int[size];
+            int[] arr2 = new int[size];
+
+            Console.WriteLine("Enter Elements to the array:");
+            for (int i = 0; i < size; i++)
+            {
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+
+            Array.Copy(arr, arr2, size);
+
+
+            Console.WriteLine("Copy Elements:");
+            foreach (int array in arr)
+            {
+                Console.WriteLine(array);
+            }
+
+            Array.Sort(arr);
+
+
+            Console.WriteLine("Sort Elements");
+            foreach (int a in arr)
+            {
+                Console.WriteLine(a);
+            }
+
+            Array.Clear(arr, 2, 2);
+
+
+            Console.WriteLine("Clear Elements:");
+            foreach (int n in arr)
+            {
+                Console.WriteLine(n);
+            }
+
+            Array.Reverse(arr);
+
+
+            Console.WriteLine("Reverse Elements:");
+            foreach (int b in arr)
+            {
+                Console.WriteLine(b);
+            }
+        }
+
+
+        public void String()
+        {
+            Console.WriteLine("Enter Size of an Array:");
+            int size = int.Parse(Console.ReadLine());
+
+
+            string[] str = new string[size];
+            string[] str2 = new string[size];
+
+            Console.WriteLine("Enter Strings to the array:");
+
+            for (int i = 0; i < size; i++)
+            {
+                str[i] = Console.ReadLine();
+            }
+
+            Array.Copy(str, str2, size);
+            Console.WriteLine("Copy Strings:");
+
+            foreach (string array in str)
+            {
+                Console.WriteLine(array);
+            }
+
+
+            Array.Sort(str);
+            Console.WriteLine("Sort Strings:");
+
+            foreach (string a in str)
+            {
+                Console.WriteLine(a);
+            }
+
+            Array.Clear(str, 1, 2);
+            Console.WriteLine("Clear Strings:");
+
+            foreach (string n in str)
+            {
+                Console.WriteLine(n);
+            }
+
+            Array.Reverse(str);
+            Console.WriteLine("Reverse Strings:");
+
+            foreach (string b in str)
+            {
+                Console.WriteLine(b);
+            }
+
+        }
+        public static void Main(string[] args)
+        {
+            Program p = new Program();
+            p.integer();
+            Console.WriteLine("---------------");
+            p.String();
+
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 2)	Use collection class such as ArrayList to hold more than one employee objects in Employee Management application. Display all Employee details which are stored in 
+collection. */
+
+using System;
+using System.Collections.Generic;
+namespace EmployeeManagementApplication
+{
+    public class Demo
+    {
+        public static void Main()
+        {
+            List<object> arr1 = new List<object>();
+            arr1.Add("1");
+            arr1.Add("Vijji");
+            arr1.Add("5000");
+
+            Console.WriteLine("Initial List ...");
+            foreach (object i in arr1)
+            {
+                Console.WriteLine(i);
+            }
+            object[] arr2 = new object[4];
+            arr2[0] = 2;
+            arr2[1] = "Priyanka";
+            arr2[2] = 8000;
+            arr2[3] = 90;
+            arr1.InsertRange(3, arr2);
+            Console.WriteLine("After adding elements ...");
+            foreach (object i in arr1)
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 3)	Write a console based program to create a linked list of Employee objects using the generic class List<>.Perform following operations on the list:
+a.	Add a new employee
+b.	Display the list of employees.
+c.	Total number of employees in the list  */
+
+using System;
+using System.Collections.Generic;
+
+namespace GenericClassList
+{
+    public class Employee<T>
+    {
+        // define an Array of Generic type with length 4
+        T[] obj = new T[4];
+        int count = 0;
+
+        // adding items mechanism into generic type
+        public void Add(T item)
+        {
+            //checking length
+            if (count + 1 < 5)
+            {
+                obj[count] = item;
+
+            }
+            count++;
+        }
+        //indexer for foreach statement iteration
+        public T this[int index]
+        {
+            get { return obj[index]; }
+            set { obj[index] = value; }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //instantiate generic with String
+            Employee<String> l1 = new Employee<String>();
+
+            //adding integer values into collection
+            l1.Add("vijji");
+            l1.Add("Priyanka");
+            l1.Add("Sharu");
+            l1.Add("Sakshi");
+
+
+            //displaying values
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine("Employee Details:");
+                Console.WriteLine(l1[i]);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 4)	Write Custom Generic class MyStack based on assignment of previous session, with
+Push() and Pop() methods to store any kind of .NET Type. */
+
+using System;
+using System.Collections.Generic;
+namespace GenericStack
+{
+    class MyStack
+    {
+        public static void Main()
+        {
+            try
+            {
+                Stack<object> numbers = new Stack<object>();
+                numbers.Push("one");
+                numbers.Push("2");
+                numbers.Push("three");
+                numbers.Push("4");
+                numbers.Push("five");
+
+                // A stack can be enumerated without disturbing its contents.
+                foreach (object number in numbers)
+                {
+                    Console.WriteLine(number);
+                }
+
+                Console.WriteLine("\nPopping '{0}'", numbers.Pop());
+                Console.WriteLine("Peek at next item to destack: {0}",
+                    numbers.Peek());
+                Console.WriteLine("Popping '{0}'", numbers.Pop());
+
+                // Create a copy of the stack, using the ToArray method and the
+                // constructor that accepts an IEnumerable<T>.
+                Stack<object> stack2 = new Stack<object>(numbers.ToArray());
+
+                Console.WriteLine("\nContents of the first copy:");
+                foreach (string number in stack2)
+                {
+                    Console.WriteLine(number);
+                }
+
+                // Create an array twice the size of the stack and copy the
+                // elements of the stack, starting at the middle of the
+                // array.
+                string[] array2 = new string[numbers.Count * 2];
+                numbers.CopyTo(array2, numbers.Count);
+
+                // Create a second stack, using the constructor that accepts an
+                // IEnumerable(Of T).
+                Stack<object> stack3 = new Stack<object>(array2);
+
+                Console.WriteLine("\nContents of the second copy, with duplicates and nulls:");
+                foreach (object number in stack3)
+                {
+                    Console.WriteLine(number);
+                }
+
+                Console.WriteLine("\nstack2.Contains(\"four\") = {0}",
+                    stack2.Contains("four"));
+
+                Console.WriteLine("\nstack2.Clear()");
+                stack2.Clear();
+                Console.WriteLine("\nstack2.Count = {0}", stack2.Count);
+            }
+            catch (Exception ex)
+            { Console.WriteLine(ex.Message); }
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 5)	In the assignment 3 above, add a functionality to search an employee on name in the List<>.*/
+
+
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
+namespace GenericApp
+{
+    public class Employeee<T>
+    {
+        // define an Array of Generic type with length 4
+        T[] obj = new T[4];
+        int count = 0;
+        public int EmpId { get; set; }
+        public string EmpName { get; set; }
+        public string Gender { get; set; }
+        public double Salary { get; set; }
+
+        // adding items mechanism into generic type
+        public void Add(T item)
+        {
+            //checking length
+            if (count + 1 < 5)
+            {
+                obj[count] = item;
+
+            }
+            count++;
+            Console.WriteLine("No of employees" + count);
+        }
+
+        //indexer for foreach statement iteration
+        public T this[int index]
+        {
+            get { return obj[index]; }
+            set { obj[index] = value; }
+        }
+    }
+    class Employeee
+    {
+        public int EmpId { get; set; }
+        public string EmpName { get; set; }
+        public string Gender { get; set; }
+        public double Salary { get; set; }
+        static void Main(string[] args)
+        {
+
+            Employeee sOne = new Employeee()
+            {
+                EmpId = 101,
+                EmpName = "Vijji",
+                Gender = "Female",
+                Salary = 450.55
+            };
+
+            Employeee sTwo = new Employeee()
+            {
+                EmpId = 102,
+                EmpName = "Priyanka",
+                Gender = "Male",
+                Salary = 341
+            };
+
+            Employeee sThree = new Employeee()
+            {
+                EmpId = 103,
+                EmpName = "Sharu",
+                Gender = "Female",
+                Salary = 750.32
+            };
+
+            Employeee sFour = new Employeee()
+            {
+                EmpId = 104,
+                EmpName = "Sakshi",
+                Gender = "Male",
+                Salary = 612
+            };
+
+
+            List<Employeee> EmployeeList = new List<Employeee>();
+            EmployeeList.Add(sOne);
+            EmployeeList.Add(sTwo);
+            EmployeeList.Add(sThree);
+            EmployeeList.Add(sFour);
+
+
+            Employeee s = EmployeeList[0];
+            Employeee s1 = EmployeeList[1];
+            Employeee s2 = EmployeeList[2];
+            Employeee s3 = EmployeeList[3];
+
+
+
+            Console.WriteLine("EmpId is {0}, EmpName is {1}, Emp Gender is {2}, EmpSalary is {3}", s.EmpId, s.EmpName, s.Gender, s.Salary);
+            Console.WriteLine("EmpId is {0}, EmpName is {1}, Emp Gender is {2}, EmpSalary is {3}", s1.EmpId, s1.EmpName, s1.Gender, s1.Salary);
+            Console.WriteLine("EmpId is {0}, EmpName is {1}, Emp Gender is {2}, EmpSalary is {3}", s2.EmpId, s2.EmpName, s2.Gender, s2.Salary);
+            Console.WriteLine("EmpId is {0}, EmpName is {1}, Emp Gender is {2}, EmpSalary is {3}", s3.EmpId, s3.EmpName, s3.Gender, s3.Salary);
+
+            Console.WriteLine(s.EmpName);
+            Console.WriteLine(s1.EmpName);
+            Console.WriteLine(s2.EmpName);
+            Console.WriteLine(s3.EmpName);
+            Console.WriteLine(EmployeeList.Count);
+            int index = EmployeeList.FindIndex(x => x.EmpName != "Black Window");
+
+            Console.WriteLine(index);
+
+
+            Console.ReadKey();
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 6)	Create a class named Player that contains Player name, runs scored as data members. Create a class named Team that contains an array of Player. Implement IEnumerable interface for class Team.
+Write a console based application to create an object named India. Use foreach loop to iterate through the object India to display information about its players. */
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IEnumerableExample
+{
+    class Player
+    {
+        public string Name { get; set; }
+        public int Run { get; set; }
+
+        public Player(string name, int run)
+        {
+            Name = name;
+            Run = run;
+        }
+    }
+    class Team : IEnumerable
+    {
+        private Player[] playerArray = new Player[4];
+
+        public Team()
+        {
+            playerArray[0] = new Player("Virat", 28);
+            playerArray[1] = new Player("Dhoni", 35);
+            playerArray[2] = new Player("Rohit", 29);
+            playerArray[3] = new Player("Yuvraj", 34);
+
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return playerArray.GetEnumerator();
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Team India = new Team();
+
+            foreach (Player player in India)
+            {
+                Console.WriteLine("Name is{0} and Run is {1}", player.Name, player.Run);
+
+            }
+            Console.ReadLine();
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 7)	Use an iterator to iterate through the players in the above example.*/
+
+
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace IteratorToIterate
+{
+    public class keySetIterator
+    {
+        public static void Main(String[] args)
+        {
+
+            foreach (object number in SomeNames())
+            {
+                Console.Write(number.ToString() + " ");
+                
+            }
+            
+            Console.ReadKey();
+        }
+
+        public static System.Collections.IEnumerable SomeNames()
+        {
+            Console.WriteLine("Player Details:");
+            yield return "Virat";
+            yield return "\nDhoni";
+            yield return "\nRohit";
+            yield return "\nYuvaraj";
+
+
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

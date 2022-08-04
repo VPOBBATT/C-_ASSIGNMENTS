@@ -1,0 +1,444 @@
+/* 1)	Create a hierarchy of Employee, Manager, MarketingExecutive in Employee Management System. They should have the following functionality.
+a)	Manager with following private members.
+	Petrol Allowance: 8 % of Salary.
+	Food Allowance : 13 % of Salary.
+	Other Allowances : 3% of Salary.
+Calculate GrossSalary by adding above allowances. Override CalculateSalary() method to calculate Net Salary. NetSalary. PF calculation should not consider above allowances.
+b)	MarketingExecutive with following private members.
+	Kilometer travel
+	Tour Allowances : Rs 5/- per Kilometer (Automatically generated).
+	Telephone Allowances : Rs.1000/-
+Calculate GrossSalary by adding above allowances. Override CalculateSalary(). NetSalary,PF calculation should not consider above allowances.
+Implement IPrintable interface for every Employee which will allow to print details of Employee on console. */
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManagementSystem
+{
+    class Inheritence
+    {
+
+        class Employee
+        {
+            protected int EmpNo { get; set; }
+            protected string EmpName { get; set; }
+            protected double Salary { get; set; }
+            protected double HRA { get; set; }
+            protected double TA { get; set; }
+            protected double DA { get; set; }
+            public double PF { get; set; }
+            protected double TDS { get; set; }
+            protected double NetSalary { get; set; }
+            protected double GrossSalary { get; set; }
+
+
+            public Employee(int EmpNum, string EmpName, double Sal)
+            {
+                EmpNo = EmpNo;
+                EmpName = EmpName;
+                Salary = Sal;
+                if (Salary < 5000)
+                {
+                    HRA = Salary * 10 / 100;
+                    TA = Salary * 5 / 100;
+                    DA = Salary * 15 / 100;
+                    GrossSalary = Salary + HRA + TA + DA;
+                }
+                else if (Salary < 10000)
+                {
+                    HRA = Salary * 15 / 100;
+                    TA = Salary * 10 / 100;
+                    DA = Salary * 20 / 100;
+                    GrossSalary = Salary + HRA + TA + DA;
+                }
+                else if (Salary < 15000)
+                {
+                    HRA = Salary * 20 / 100;
+                    TA = Salary * 15 / 100;
+                    DA = Salary * 25 / 100;
+                    GrossSalary = Salary + HRA + TA + DA;
+                }
+                else if (Salary < 20000)
+                {
+                    HRA = Salary * 25 / 100;
+                    TA = Salary * 20 / 100;
+                    DA = Salary * 30 / 100;
+                    GrossSalary = Salary + HRA + TA + DA;
+                }
+                else
+                {
+                    HRA = Salary + 30 / 100;
+                    TA = Salary + 25 / 100;
+                    DA = Salary + 35 / 100;
+                    GrossSalary = Salary + HRA + TA + DA;
+                }
+            }
+            public virtual void ClaculateSalary()
+            {
+                PF = GrossSalary * (0.1);
+                TDS = GrossSalary * (0.18);
+                NetSalary = GrossSalary - (PF + TDS);
+                Console.WriteLine("NetSalary of Employee:{0}", NetSalary);
+                Console.WriteLine("PF of Employee:{0}", PF);
+            }
+
+            public virtual void Gsal()
+            {
+                Console.WriteLine("GrossSalary of Employee:{0}", GrossSalary);
+            }
+
+        }
+
+
+
+        class Manager : Employee
+        {
+            private double PetrolAllowance { get; set; }
+            private double FoodAllowance { get; set; }
+            private double OtherAllowance { get; set; }
+            public Manager(int EmpNum, string EmpNm, double Sal) : base(EmpNum, EmpNm, Sal)
+            {
+                PetrolAllowance = Salary * 8 / 100;
+                FoodAllowance = Salary * 13 / 100;
+                OtherAllowance = Salary * 3 / 100;
+            }
+            public override void Gsal()
+            {
+                GrossSalary = (GrossSalary + PetrolAllowance + FoodAllowance + OtherAllowance);
+                Console.WriteLine("GrossSalary of Manager :{0}", GrossSalary);
+            }
+
+            public override void ClaculateSalary()
+            {
+                PF = GrossSalary * (0.1);
+                TDS = GrossSalary * (0.18);
+                NetSalary = GrossSalary - (PF + TDS);
+                Console.WriteLine("NetSalary of Manager :{0}", NetSalary);
+                Console.WriteLine("PF of Manager:{0}", PF);
+            }
+        }
+        class MarketingExecutive : Employee
+        {
+            private double kilometertravel { get; set; }
+            private double TourAllowance { get; set; }
+            private double TelephoneAllowance { get; set; }
+
+            public MarketingExecutive(int EmpNum, string EmpNm, double Sal, double klt) : base(EmpNum, EmpNm, Sal)
+            {
+                kilometertravel = klt;
+                TourAllowance = kilometertravel * 5;
+                TelephoneAllowance = 1000;
+            }
+            public override void Gsal()
+            {
+                GrossSalary = (GrossSalary + TourAllowance + TelephoneAllowance);
+                Console.WriteLine("GrossSalary of MarketingExecutive:{0}", GrossSalary);
+            }
+            public override void ClaculateSalary()
+            {
+                PF = GrossSalary * (0.1);
+                TDS = GrossSalary * (0.18);
+                NetSalary = GrossSalary - (PF + TDS);
+                Console.WriteLine("NetSalary of MarketingExecutive:{0}", NetSalary);
+                Console.WriteLine("PF of MarketingExecutive:{0}", PF);
+
+            }
+
+        }
+        public interface IPrintableinterface
+        {
+            void IPrintableMethod();
+
+        }
+        class Program : IPrintableinterface
+        {
+            public void IPrintableMethod()
+            {
+                Employee Emp1 = new Employee(1, "chitti", 25000);
+                Manager M1 = new Manager(2, "Priya", 30000);
+                MarketingExecutive MarkE1 = new MarketingExecutive(3, " charan ", 40000, 10);
+                Console.WriteLine("empNum:1", Emp1);
+                Console.WriteLine("EmpName:Vijji", Emp1);
+                Console.WriteLine("salary:25000", Emp1);
+                Console.WriteLine("empNum:2", M1);
+                Console.WriteLine("EmpName:Priya", M1);
+                Console.WriteLine("salary:30000", M1);
+                Console.WriteLine("empNum:3", MarkE1);
+                Console.WriteLine("EmpName:charan", MarkE1);
+                Console.WriteLine("salary:40000", MarkE1);
+
+            }
+            public static void Main(string[] args)
+            {
+                Program P = new Program();
+                P.IPrintableMethod();
+                Employee Emp1 = new Employee(1, "Vijji", 25000);
+                Manager M1 = new Manager(2, "Priya", 30000);
+                MarketingExecutive MarkE1 = new MarketingExecutive(3, " charan ", 40000, 10);
+                Emp1.Gsal();
+                M1.Gsal();
+                MarkE1.Gsal();
+                M1.ClaculateSalary();
+                Emp1.ClaculateSalary();
+                MarkE1.ClaculateSalary();
+
+
+
+            }
+
+
+        }
+    }
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*2)	Write a class called MyStack with following members.
+a)	integer array
+b)	integer variable to store top position
+c)	size of the array.
+Implement Push() and Pop() operation. Implement ICloneable interface to perform cloning. Write a client application to perform cloning. */
+
+
+CLIENT:
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using StackImplementation;
+using System.Collections;
+
+namespace Iclonableinterface
+{
+
+    class Client
+    {
+        public static void Main(string[] args)
+        {
+
+            try
+            {
+
+                StackImplementation.Stack mystack = new StackImplementation.Stack();
+                mystack.Push(10);
+                mystack.Push(20);
+                mystack.Push(30);
+                mystack.Push(40);
+                mystack.PrintStack();
+                mystack.Peek();
+                Console.WriteLine("Item popped from Stack : {0}", mystack.Pop());
+                mystack.PrintStack();
+                StackImplementation.Stack mystack2 = (StackImplementation.Stack)mystack.Clone();
+                Console.WriteLine("Cloned Stack", mystack2);
+                mystack.Push(10);
+                mystack.Push(20);
+                mystack.Push(30);
+                mystack.Push(40);
+                mystack.PrintStack();
+                mystack.Peek();
+                Console.WriteLine("Item popped from Stack : {0}", mystack.Pop());
+                mystack2.PrintStack();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+    }
+}
+
+PROGRAM:
+
+using System;
+using System.Collections;
+
+namespace StackImplementation
+{
+
+    public class Stack
+    {
+        static readonly int MAX = 1000;
+        int top;
+        int[] stack = new int[MAX];
+
+        public bool IsEmpty()
+        {
+            return (top < 0);
+        }
+        public Stack()
+        {
+            top = -1;
+        }
+        public bool Push(int data)
+        {
+            if (top >= MAX)
+            {
+                Console.WriteLine("Stack Overflow");
+                return false;
+            }
+            else
+            {
+                stack[++top] = data;
+                return true;
+            }
+        }
+
+        public int Pop()
+        {
+            if (top < 0)
+            {
+                Console.WriteLine("Stack Underflow");
+                return 0;
+            }
+            else
+            {
+                int value = stack[top--];
+                return value;
+            }
+        }
+
+        public void Peek()
+        {
+            if (top < 0)
+            {
+                Console.WriteLine("Stack Underflow");
+                return;
+            }
+            else
+                Console.WriteLine("The topmost element of Stack is : {0}", stack[top]);
+        }
+        public void PrintStack()
+        {
+            if (top < 0)
+            {
+                Console.WriteLine("Stack Underflow");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Items in the Stack are :");
+                for (int i = top; i >= 0; i--)
+                {
+                    Console.WriteLine(stack[i]);
+                }
+            }
+        }
+        public virtual object Clone()
+        {
+            return new StackImplementation.Stack();
+        }
+    }
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Stack myStack = new Stack();
+
+
+            myStack.Push(10);
+            myStack.Push(20);
+            myStack.Push(30);
+            myStack.Push(40);
+            myStack.PrintStack();
+            myStack.Peek();
+            Console.WriteLine("Item popped from Stack : {0}", myStack.Pop());
+            myStack.PrintStack();
+
+        }
+
+
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 3)	Create a custom exception class named StackException. The Push()and Pop() method should throw object of StackException when the stack is full or empty respectively. */
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExeptionHandling
+{
+    class StackException
+    {
+
+        private int div = -1;
+        public int i;
+        protected int j;
+        public int[] ele;
+      
+
+        public void push()
+        {
+            try
+            {
+                Console.WriteLine("Enter Array Size:");
+                j = Convert.ToInt32(Console.ReadLine());
+                if (j >= 7)
+                {
+                    throw new IndexOutOfRangeException("Index Out Of Range Exception");
+                    return;
+                }
+                ele = new int[j];
+                Console.WriteLine("Enter Elements");
+                for (i = 0; i < j; i++)
+                {
+                    ele[i] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            catch (Exception exce)
+            {
+                Console.WriteLine(exce.Message);
+            }
+            foreach (int rev in ele)
+            {
+                if (div >= j)
+                {
+                    Console.WriteLine("Error known");
+                    return;
+                }
+                else
+                {
+                    ele[div++] = j;
+                }
+            }
+        }
+        public int pop()
+        {
+            if (div == -1)
+            {
+                Console.WriteLine("Eroor Unknown");
+                return -1;
+            }
+            else
+            {
+                Console.WriteLine("Item popped from Stack :" + ele[div]);
+                return ele[div--];
+
+            }
+        }
+
+        class Run
+        {
+            static void Main(string[] args)
+            {
+                StackException se = new StackException();
+                se.push();
+                Console.WriteLine("Items in Stack are:");
+                se.pop();
+                Console.ReadLine();
+            }
+        }
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

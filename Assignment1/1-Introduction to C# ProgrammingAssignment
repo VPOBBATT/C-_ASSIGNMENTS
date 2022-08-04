@@ -1,0 +1,398 @@
+/* 1.	Write a Simple console Application Calculator with the help of Visual Studio .NET IDE which will perform following operations on two numbers:
+a.	Addition.
+b.	Subtraction.
+c.	Multiplication.
+d.	Division
+Accept input from user and display results on console. Make use of loops, switch case wherever required. */
+
+
+using System;
+
+namespace Calculator
+{
+    class Calculator
+    {
+        public static double DoOperation(double num1, double num2, string op)
+        {
+            double result = double.NaN; // Default value is "not-a-number" which we use if an operation, such as division, could result in an error.
+
+            // Use a switch statement to do the math.
+            switch (op)
+            {
+                case "a":
+                    result = num1 + num2;
+                    break;
+                case "s":
+                    result = num1 - num2;
+                    break;
+                case "m":
+                    result = num1 * num2;
+                    break;
+                case "d":
+                    // Ask the user to enter a non-zero divisor.
+                    if (num2 != 0)
+                    {
+                        result = num1 / num2;
+                    }
+                    break;
+                // Return text for an incorrect option entry.
+                default:
+                    break;
+            }
+            return result;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool endApp = false;
+            // Display title as the C# console calculator app.
+            Console.WriteLine("Console Calculator in C#\r");
+            Console.WriteLine("------------------------\n");
+
+            while (!endApp)
+            {
+                // Declare variables and set to empty.
+                string numInput1 = "";
+                string numInput2 = "";
+                double result = 0;
+
+                // Ask the user to type the first number.
+                Console.Write("Type a number, and then press Enter: ");
+                numInput1 = Console.ReadLine();
+
+                double cleanNum1 = 0;
+                while (!double.TryParse(numInput1, out cleanNum1))
+                {
+                    Console.Write("This is not valid input. Please enter an integer value: ");
+                    numInput1 = Console.ReadLine();
+                }
+
+                // Ask the user to type the second number.
+                Console.Write("Type another number, and then press Enter: ");
+                numInput2 = Console.ReadLine();
+
+                double cleanNum2 = 0;
+                while (!double.TryParse(numInput2, out cleanNum2))
+                {
+                    Console.Write("This is not valid input. Please enter an integer value: ");
+                    numInput2 = Console.ReadLine();
+                }
+
+                // Ask the user to choose an operator.
+                Console.WriteLine("Choose an operator from the following list:");
+                Console.WriteLine("\ta - Add");
+                Console.WriteLine("\ts - Subtract");
+                Console.WriteLine("\tm - Multiply");
+                Console.WriteLine("\td - Divide");
+                Console.Write("Your option? ");
+
+                string op = Console.ReadLine();
+
+                try
+                {
+                    result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                    if (double.IsNaN(result))
+                    {
+                        Console.WriteLine("This operation will result in a mathematical error.\n");
+                    }
+                    else Console.WriteLine("Your result: {0:0.##}\n", result);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Oh no! An exception occurred trying to do the math.\n - Details: " + e.Message);
+                }
+
+                Console.WriteLine("------------------------\n");
+
+                // Wait for the user to respond before closing.
+                Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+                if (Console.ReadLine() == "n") endApp = true;
+
+                Console.WriteLine("\n"); // Friendly linespacing.
+            }
+            return;
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 2.	Accept average marks of five students. Display the highest marks obtained. *\
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment1AvreageMarks2
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            float[] avg = new float[5];
+            int[] Student1 = { 20, 30, 31, 32, };
+            int[] Student2 = { 20, 34, 31, 32, };
+            int[] Student3 = { 20, 30, 31, 62, };
+            int[] Student4 = { 20, 30, 71, 32, };
+            int[] Student5 = { 20, 70, 33, 32, };
+
+            avg[0] = Student1.Sum() / Student1.Length;
+            avg[1] = Student2.Sum() / Student2.Length;
+            avg[2] = Student3.Sum() / Student3.Length;
+            avg[3] = Student4.Sum() / Student4.Length;
+            avg[4] = Student5.Sum() / Student5.Length;
+
+            Console.WriteLine(avg.Max());//To find highest marks
+            Console.ReadLine();
+
+        }
+    }
+}
+
+[or]
+
+
+using System;
+
+class TheBiggestMarksAmongTheFiveStudents
+{
+    static void Main()
+    {
+        
+
+        Console.Write("\n\n");
+        Console.Write("Find the highest marks among them:\n");
+        Console.Write("------------------------------------");
+        Console.Write("\n\n");
+
+        Console.Write("Enter the 1st student  marks:");
+        decimal a = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter the 2nd student  marks :");
+        decimal b = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter the 3rd student  marks :");
+        decimal c = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter the 4th student  marks :");
+        decimal d = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter the 5th student  marks :");
+        decimal e = Convert.ToInt32(Console.ReadLine());
+        decimal average = (a+b+c+d +e)/5;
+        Console.WriteLine("The average marks of five Students {0},{1},{2},{3},{4} is :{5}", a,b,c,d,e,average);
+
+        if ((a >= b) && (a >= c) && (a >= d) && (a >= e))
+        {
+            Console.WriteLine("The highest marks is: {0}", a);
+            return;
+        }
+        if ((b >= a) && (b >= c) && (b >= d) && (b >= c))
+        {
+            Console.WriteLine("The highest marks is: {0}", b);
+            return;
+        }
+        if ((c >= a) && (c >= b) && (c >= d) && (c >= e))
+        {
+            Console.WriteLine("The highest marks  is: {0}", c);
+            return;
+        }
+        if ((d >= a) && (d >= b) && (d >= c) && (d >= e))
+        {
+            Console.WriteLine("The highest maarks is: {0}", d);
+            return;
+        }
+        if ((e >= a) && (e >= b) && (e >= c) && (e >= d))
+        {
+            Console.WriteLine("The highest marks  is: {0}", e);
+            return;
+        }
+
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 3.	Write a static method to accept param array of integers. The method should find the sum of all the integers passed and display the result. Write a client program to call the method. */
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ASSIGNMENT_1_3
+{
+    public class ParamArray
+    {
+        public static void Main(string[] args)
+        {
+            try
+            {
+                int[] numbers = { 20, 30, 40, 50, 100 };
+                int n = numbers.Length;
+                Param(numbers);
+
+                static int Param(params int[] numbers)
+
+                { 
+                    int sum = 0;
+                    for (int i = 0; i < numbers.Length; i++)
+                    {
+                        sum = sum + numbers[i];
+                    }
+                    Console.WriteLine(" sum of all integers:{0}", sum);
+                    return sum;
+                }
+
+
+            }
+
+            catch (Exception ex)
+            { 
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+            
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*4.	Write a method to swap two integers. The client code should call the method and print the swapped value.*/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ASSIGNMENT_1_4Swap
+{
+    using System;
+    public class Swapping
+    {
+        public static void interchange(ref int num1, ref int num2)
+        {
+            int newnum;
+
+            newnum = num1;
+            num1 = num2;
+            num2 = newnum;
+        }
+        public static void Main()
+        {
+            int n1, n2;
+            Console.Write("\n\nFunction : To swap the values of two integer numbers :\n");
+            Console.Write("----------------------------------------------------------\n");
+            Console.Write("Enter a number: ");
+            n1 = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter another number: ");
+            n2 = Convert.ToInt32(Console.ReadLine());
+            interchange(ref n1, ref n2);
+            Console.WriteLine("Now the 1st number is : {0} , and the 2nd number is : {1}", n1, n2);
+        }
+    }
+
+
+
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/5.	Write a single method that calculates the area and circumference of the circle. The area and circumference should be displayed through the client code/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AreaCircumference
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                
+                double radius,circumference,area ;
+                Console.WriteLine("Enter the value of the radius :");
+                radius = double.Parse(Console.ReadLine());
+
+                circumference = 2 * Math.PI * radius;
+
+                Console.WriteLine("Circumference of the circle:" + Math.Round(circumference, 2));
+                area = Math.PI * radius * radius;
+                Console.WriteLine("Area of the Circle:{0}", area);
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*6.	Create a structure Book which contains the following members:
+bookId, title, price, bookType
+Type of the book should an enumerated data type with values as Magazine, Novel, ReferenceBook, Miscellaneous. Write a console based application to do the following tasks.
+a.	Accept the details of the book
+b.	Display the details of the book. The type of book should be displayed as a string e.g.:
+Magazine */
+
+
+using System;
+
+namespace StructureBook
+{
+    struct Book
+    {
+        public int bookId;
+        public string title;
+        public double price;
+        public int code;
+        enum bookType
+        {
+            Magazine = 0,
+            Novel = 1,
+            ReferenceBook = 2,
+            Miscellaneous = 3
+        }
+
+        public void Accept()
+        {
+            Console.WriteLine("Enter the Book Id:");
+            bookId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the Title:");
+            title = (Console.ReadLine());
+            Console.WriteLine("Enter the Price:");
+            price = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the code for Book Type:");
+            code = int.Parse(Console.ReadLine());
+
+        }
+
+        public void Display()
+        {
+            Console.WriteLine("\n----------Details----------");
+            Console.WriteLine("Book Id : " + bookId);
+            Console.WriteLine("Book Title : " + title);
+            Console.WriteLine("Book Price : " + price);
+            Console.WriteLine("Book Type is:" + (bookType)code);
+        }
+
+        static void Main(string[] args)
+        {
+            Book book1 = new Book();
+            book1.Accept();
+            book1.Display();
+
+
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------

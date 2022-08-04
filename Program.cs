@@ -1,54 +1,50 @@
 ﻿using System;
 
-class TheBiggestMarksAmongTheFiveStudents
+namespace StructureBook
 {
-    static void Main()
+    struct Book
     {
-        
-
-        Console.Write("\n\n");
-        Console.Write("Find the highest marks among them:\n");
-        Console.Write("------------------------------------");
-        Console.Write("\n\n");
-
-        Console.Write("Enter the 1st student Average marks:");
-        decimal a = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Enter the 2nd student Average marks :");
-        decimal b = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Enter the 3rd student Average marks :");
-        decimal c = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Enter the 4th student Average marks :");
-        decimal d = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Enter the 5th student Average marks :");
-        decimal e = Convert.ToInt32(Console.ReadLine());
-        decimal average = (a+b+c+d +e)/5;
-        Console.WriteLine("The average marks of five Students {0},{1},{2},{3},{4} is :{5}", a,b,c,d,e,average);
-
-        if ((a >= b) && (a >= c) && (a >= d) && (a >= e))
+        public int bookId;
+        public string title;
+        public double price;
+        public int code;
+        enum bookType
         {
-            Console.WriteLine("The highest marks is: {0}", a);
-            return;
-        }
-        if ((b >= a) && (b >= c) && (b >= d) && (b >= c))
-        {
-            Console.WriteLine("The highest marks is: {0}", b);
-            return;
-        }
-        if ((c >= a) && (c >= b) && (c >= d) && (c >= e))
-        {
-            Console.WriteLine("The highest marks  is: {0}", c);
-            return;
-        }
-        if ((d >= a) && (d >= b) && (d >= c) && (d >= e))
-        {
-            Console.WriteLine("The highest maarks is: {0}", d);
-            return;
-        }
-        if ((e >= a) && (e >= b) && (e >= c) && (e >= d))
-        {
-            Console.WriteLine("The highest marks  is: {0}", e);
-            return;
+            Magazine = 0,
+            Novel = 1,
+            ReferenceBook = 2,
+            Miscellaneous = 3
         }
 
+        public void Accept()
+        {
+            Console.WriteLine("Enter the Book Id:");
+            bookId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the Title:");
+            title = (Console.ReadLine());
+            Console.WriteLine("Enter the Price:");
+            price = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the code for Book Type:");
+            code = int.Parse(Console.ReadLine());
+
+        }
+
+        public void Display()
+        {
+            Console.WriteLine("\n----------Details----------");
+            Console.WriteLine("Book Id : " + bookId);
+            Console.WriteLine("Book Title : " + title);
+            Console.WriteLine("Book Price : " + price);
+            Console.WriteLine("Book Type is:" + (bookType)code);
+        }
+
+        static void Main(string[] args)
+        {
+            Book book1 = new Book();
+            book1.Accept();
+            book1.Display();
+
+
+        }
     }
 }
